@@ -1,0 +1,40 @@
+[project]
+name = "marco-rl"
+version = "0.1.0"
+description = "verl-based molecular optimization training and evaluation for MARCO"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.31.0",
+  "pyyaml>=6.0.0",
+  "numpy>=1.24.0",
+  "rdkit>=2024.3.0",
+]
+
+[project.optional-dependencies]
+data = ["pyarrow>=19.0.0", "pandas>=2.1.0"]
+inference = ["torch>=2.5", "transformers>=4.57.1,<5", "accelerate>=1.1"]
+test = [
+  "pytest>=8.0.0",
+  "pyarrow>=19.0.0",
+  "pandas>=2.1.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["marco*"]
+exclude = ["marco.tests*"]
+
+[tool.setuptools.package-data]
+marco = ["configs/*.yaml", "verl/config/*.yaml", "verl/config/agent_loop/*.yaml", "verl/config/interaction_config/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["marco/tests"]
+pythonpath = ["."]

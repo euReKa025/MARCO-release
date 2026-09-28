@@ -1,0 +1,50 @@
+hydra:
+  searchpath:
+    - file://${oc.env:VERL_CONFIG_PATH}
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+algorithm:
+  adv_estimator: grpo
+
+data:
+  train_files: data/grpo_single_turn_recomputed/train.parquet
+  val_files: data/grpo_single_turn_recomputed/val.parquet
+  prompt_key: prompt
+  max_prompt_length: 4096
+  max_response_length: 512
+  train_batch_size: 32
+  return_raw_chat: true
+
+reward:
+  custom_reward_function:
+    path: pkg://marco.verl.reward.repo_single_turn
+    name: compute_score
+
+actor_rollout_ref:
+  hybrid_engine: true
+  model:
+    path: Qwen/Qwen2.5-3B-Instruct
+  actor:
+    strategy: fsdp
+    ppo_micro_batch_size_per_gpu: 1
+    use_kl_loss: true
+    kl_loss_coef: 0.04
+    kl_loss_type: low_var_kl
+  ref:
+    strategy: fsdp
+  rollout:
+    name: sglang
+    tensor_model_parallel_size: 1
+    n: 8
+    temperature: 0.7
+    top_p: 0.8
+
+trainer:
+  project_name: marco-verl
+  experiment_name: grpo-repo-single-turn
+  nnodes: 1
+  n_gpus_per_node: 1
+  logger: [console]

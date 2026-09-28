@@ -1,0 +1,40 @@
+# Optional fallback deltas when dataset does not provide "change".
+default_delta: 0.1
+tasks:
+  bbbp+drd2+plogp:
+    bbbp: 0.2
+    drd2: 0.2
+    plogp: 0.5
+  bbbp+drd2+qed:
+    bbbp: 0.2
+    drd2: 0.2
+    qed: 0.05
+  bbbp+plogp+qed:
+    bbbp: 0.2
+    plogp: 0.5
+    qed: 0.05
+  bbbp+drd2+plogp+qed:
+    bbbp: 0.2
+    drd2: 0.2
+    plogp: 1.0
+    qed: 0.1
+  bbbp+drd2+mutagenicity+qed:
+    bbbp: 0.2
+    drd2: 0.2
+    mutagenicity: 0.1
+    qed: 0.1
+  bbbp+hia+mutagenicity+qed:
+    bbbp: 0.2
+    hia: 0.1
+    mutagenicity: 0.1
+    qed: 0.1
+  bbbp+mutagenicity+plogp+qed:
+    bbbp: 0.2
+    mutagenicity: 0.1
+    plogp: 1.0
+    qed: 0.1
+  hia+mutagenicity+plogp+qed:
+    hia: 0.1
+    mutagenicity: 0.1
+    plogp: 1.0
+    qed: 0.1

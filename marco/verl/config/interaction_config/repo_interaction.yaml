@@ -1,0 +1,4 @@
+interaction:
+  - name: "repo"
+    class_name: "marco.verl.interaction.repo_interaction.RepoTrajectoryInteraction"
+    config: {}

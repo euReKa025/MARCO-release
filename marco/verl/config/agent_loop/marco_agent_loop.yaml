@@ -1,0 +1,2 @@
+- name: marco_tool_agent
+  _target_: marco.verl.interaction.marco_agent_loop.MarcoToolAgentLoop

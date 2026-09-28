@@ -1,0 +1,4 @@
+interaction:
+  - name: "marco"
+    class_name: "marco.verl.interaction.marco_interaction.MarcoTrajectoryInteraction"
+    config: {}

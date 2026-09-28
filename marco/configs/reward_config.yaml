@@ -1,0 +1,10 @@
+alpha: 1.0
+lambda_sim: 0.5
+success_bonus: 1.0
+invalid_penalty: 1.0
+reward_eps: 1e-8
+progress_clip: 1.0
+similarity_threshold: 0.4
+similarity_cap: 0.9
+over_similarity_penalty: 1.0
+turn_weight_temperature: 1.0

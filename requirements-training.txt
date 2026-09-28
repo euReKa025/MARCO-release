@@ -1,0 +1,10 @@
+# Core versions observed in the source training environment (Python 3.12, CUDA 12.8).
+# Install on Linux with CUDA; this is not a complete environment lockfile.
+torch==2.9.1
+transformers==4.57.1
+sglang==0.5.9
+ray[default]==2.54.0
+tensordict==0.10.0
+datasets==4.8.4
+pyarrow==23.0.1
+pandas==3.0.2

@@ -1,0 +1,39 @@
+hydra:
+  searchpath:
+    - file://${oc.env:VERL_CONFIG_PATH}
+
+defaults:
+  - sft_trainer_engine
+  - _self_
+
+data:
+  train_files: data/sft_recomputed/train.parquet
+  val_files: null
+  train_batch_size: 128
+  micro_batch_size_per_gpu: 4
+  max_token_len_per_gpu: 8192
+  max_length: 4096
+  use_dynamic_bsz: true
+  messages_key: messages
+  train_max_samples: -1
+  val_max_samples: -1
+  pad_mode: no_padding
+  truncation: error
+
+model:
+  path: Qwen/Qwen2.5-3B-Instruct
+  use_remove_padding: true
+
+engine:
+  strategy: fsdp
+
+trainer:
+  project_name: marco-verl
+  experiment_name: marco-sft
+  nnodes: 1
+  n_gpus_per_node: 1
+  logger: [console]
+  save_freq: -1
+  test_freq: -1
+  total_epochs: 1
+  resume_mode: disable
