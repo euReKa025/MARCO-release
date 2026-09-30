@@ -19,4 +19,4 @@
   and follow their respective terms. No dataset or model weights are bundled.
 
 A license for the original MARCO contribution has not yet been selected.
-No additional reuse license is implied by this private publication snapshot.
+Public availability does not grant an additional reuse license.

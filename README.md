@@ -2,7 +2,7 @@
 
 **Multi-Round Agentic Reinforcement for Conditional Molecular Optimization**
 
-Paper: <!-- Add the paper URL here. -->
+**[Paper](https://arxiv.org/abs/2609.36683)**
 
 MARCO trains molecular editors to propose a molecule, receive property and
 similarity feedback, and revise the proposal over multiple rounds. The training
@@ -13,15 +13,6 @@ reinforcement learning using [verl](https://github.com/verl-project/verl).
 The model follows an instruction and returns an edited molecule inside
 `<SMILES>...</SMILES>`. Property predictors and RDKit evaluate each proposal;
 MARCO combines molecule quality and revision trends into a trajectory reward.
-
-## Contents
-
-- [Installation](#installation)
-- [Property predictors](#property-predictors)
-- [Data preparation](#data-preparation)
-- [Training](#training)
-- [Evaluation](#evaluation)
-- [Repository layout](#repository-layout)
 
 ## Installation
 
@@ -48,11 +39,9 @@ python -m pip install flash-attn==2.8.3 --no-build-isolation
 python -m pip check
 ```
 
-`requirements-training.txt` records core versions observed in the source
-environment, rather than a complete platform lockfile. Install matching CUDA
-wheels and compiler tools on the target machine. The setup script preserves
-existing checkouts and rejects a different verl revision. For HF-only inference,
-install `python -m pip install -e '.[inference]'`; verl and SGLang are unnecessary.
+Use matching CUDA wheels and compiler tools. The requirements record core
+versions, not a complete platform lockfile. For HF-only inference, install
+`python -m pip install -e '.[inference]'`; verl and SGLang are unnecessary.
 
 Run the CPU unit tests:
 
@@ -186,10 +175,8 @@ TOTAL_EPOCHS=1 TRAINER_VAL_BEFORE_TRAIN=false TRAINER_TEST_FREQ=-1 \
 bash scripts/verl/run_marco_rl_ord_qwen.sh
 ```
 
-These are runnable starting settings, not a claim that one configuration
-reproduces every paper cell. Training uses `think_answer` prompts and five
-turns by default. See the launcher and YAML configuration for reward weights,
-rollout sampling, checkpoint frequency, and distributed settings.
+These example settings use `think_answer` prompts and five training turns.
+Task-specific settings may differ; see the launcher and YAML configuration.
 
 `scripts/verl/run_grpo_baseline_qwen.sh` provides a single-turn verl baseline;
 use `data/grpo_single_turn_recomputed/by_subtask/$TASK/` as its data source.
@@ -237,26 +224,8 @@ python -m marco.eval.sws \
   --expected-n 500 --output-json "outputs/eval/$TASK/seen/same1/scores.json"
 ```
 
-Paper results use standalone HF evaluation. Training-time validation is a
-checkpoint-screening signal. Keep data splits, predictor versions, decoding
-parameters, checkpoint selection, and turn budgets with each reported result.
-
-## Repository layout
-
-```text
-marco/
-  data/          Canonical data, SFT alignment, and parquet builders
-  env/           Molecule validation, similarity, and predictor client
-  prompts/       Output parsing and feedback construction
-  reward/        Property and validity reward primitives
-  rollout/       Post-hoc trajectory reward settlement
-  verl/          Configurations, agent loop, interactions, and reward bridge
-  eval/          Standalone HF inference and metrics
-  tests/         CPU unit tests
-scripts/         Portable training, export, predictor, and evaluation entrypoints
-patches/         Compatibility patch for the pinned verl revision
-third_party/    Predictor adapters (weights obtained separately)
-```
+Use standalone HF evaluation for reported results; training-time validation
+is only for checkpoint screening.
 
 ## Acknowledgements
 
@@ -268,4 +237,14 @@ This implementation builds on [verl](https://github.com/verl-project/verl),
 
 ## Citation
 
-Citation information will be added with the paper link.
+```bibtex
+@misc{fang2026marcomultiroundagenticreinforcement,
+  title={MARCO: Multi-Round Agentic Reinforcement for Conditional Molecular Optimization},
+  author={Shicheng Fang and Yuxin Wang and Zhuo Yang and Xiaohu Xu and Jiahao Lu and Chuanyuan Tan and Tong Zhu and Yining Zheng and Xipeng Qiu},
+  year={2026},
+  eprint={2609.36683},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2609.36683}
+}
+```
